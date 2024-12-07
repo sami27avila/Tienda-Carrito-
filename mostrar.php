@@ -9,13 +9,13 @@ $productos = isset($_SESSION['carrito']['productos']) ? $_SESSION['carrito']['pr
 
 print_r($_SESSION);
 
-$lista_carrito[] = array();
+$lista_carrito = array();
 
 if($productos != null){
     foreach($productos as $clave => $cantidad){
         
         $sql = $con->prepare("SELECT id, nombre, precio, descuento, $cantidad AS cantidad FROM productos WHERE id=? AND activo=1 ");
-        $sql->execute($clave);
+        $sql->execute([$clave]);
         $lista_carrito[] = $sql->fetch(PDO::FETCH_ASSOC);
          
     }
